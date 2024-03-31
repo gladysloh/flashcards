@@ -15,41 +15,48 @@ export function RefinedArea() {
   const [showDiff, setShowDiff] = useAtom(showDiffAtom);
   const [result] = useAtom(resultAtom);
 
-  function transformQuestionsToFlashcards(result: any) {
-    console.log('Original input:', result);
-    if (typeof result === 'string') {
-      try {
-        let parsedResult = JSON.parse(result); // First parse attempt
-        console.log('First parse result:', parsedResult);
+  function transformQuestionsToFlashcards(result: string | JSX.Element[]) {
+    let structuredFlashcards = {};
 
-        // If the result of the first parse is still a string, parse again
-        if (typeof parsedResult === 'string') {
-          parsedResult = JSON.parse(parsedResult); // Second parse attempt
-          console.log('Second parse result:', parsedResult);
-        }
+    try {
+      // Parse the input if it's a JSON string.
+      let parsedResult = typeof result === 'string' ? JSON.parse(result) : result;
 
-        if (!Array.isArray(parsedResult)) {
-          console.error('Parsed data is not an array, but a', typeof parsedResult);
-          return [];
-        }
+      // Handle double-encoded JSON strings.
+      parsedResult = typeof parsedResult === 'string' ? JSON.parse(parsedResult) : parsedResult;
 
-        result = parsedResult; // Proceed with the parsed result
-      } catch (e) {
-        console.error('Failed to parse result string as JSON:', e);
-
-        return [];
+      // Determine if the parsed result is an object (potentially with topics).
+      if (typeof parsedResult === 'object' && !Array.isArray(parsedResult)) {
+        // The input is an object with topics.
+        structuredFlashcards = Object.entries(parsedResult).reduce((acc, [topic, cards]) => {
+          if (Array.isArray(cards)) {
+            // Process and assign each card to the appropriate topic.
+            acc[topic] = cards.map((card, index) => ({
+              index: index,
+              frontHTML: <div>{card.question}</div>,
+              backHTML: <div>{card.answer}</div>,
+            }));
+          }
+          return acc;
+        }, {});
+      } else if (Array.isArray(parsedResult)) {
+        // The result is directly an array of flashcards (no specific topic).
+        // Assign them to a default topic key or leave the key as an empty string.
+        structuredFlashcards[''] = parsedResult.map((item, index) => ({
+          index: index,
+          frontHTML:<div>{item.question}</div>,
+          backHTML: <div>{item.answer}</div>,
+        }));
+      } else {
+        console.error('Invalid input format');
+        return {};
       }
-    } else if (!Array.isArray(result)) {
-      console.error('Expected an array, but received:', typeof result);
-      return [];
+    } catch (e) {
+      console.error('Failed to parse result string as JSON:', e);
+      return {};
     }
 
-    // Proceed with the assumption that result is now an array
-    return result.map((item: { question: any; answer: any; }, index: any) => ({
-      id: index,
-      frontHTML: <div>{item.question}</div>,
-      backHTML: <>{item.answer}</>,
-    }));
+    return structuredFlashcards;
   }
 
   // Use the transformation function to populate the `cards` array
@@ -70,32 +77,36 @@ export function RefinedArea() {
       </Box> */}
 
       <div>
-        {flashcards.length > 0 ? (
-          <FlashcardArray cards={flashcards}
-            frontContentStyle={{
-              color: "black",
-              textAlign: "center",
-              fontWeight: "bold",
-              fontSize: "25px",
-              fontFamily: "Arial, sans-serif",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              padding: "25px"
-
-            }}
-            backContentStyle={{
-              textAlign: "center",
-              fontFamily: "Arial, sans-serif",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              padding: "25px"
-            }}
-          />
-        ) : (
-          <p>No flashcards</p>
-        )}
+        {Object.entries(flashcards).map(([topic, flashcard], index) => (
+          <div key={index}>
+            <h2>{topic}</h2> 
+            {flashcard.length > 0 ? (
+              <FlashcardArray cards={flashcard}
+                frontContentStyle={{
+                  color: "black",
+                  textAlign: "center",
+                  fontWeight: "bold",
+                  fontSize: "25px",
+                  fontFamily: "Arial, sans-serif",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  padding: "25px"
+                }}
+                backContentStyle={{
+                  textAlign: "center",
+                  fontFamily: "Arial, sans-serif",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  padding: "25px"
+                }}
+              />
+            ) : (
+              <p>No flashcards</p>
+            )}
+          </div>
+        ))}
       </div>
 
 
