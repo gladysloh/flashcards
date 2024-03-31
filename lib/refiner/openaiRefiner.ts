@@ -12,6 +12,9 @@ const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY || "",
   basePath: (process.env.OPENAI_BASE_PATH || BASE_PATH).replace(/\/+$/, ""),
 });
+
+console.log(configuration)
+
 const model = process.env.OPENAI_MODEL || "gpt-3.5-turbo";
 const openai = new OpenAIApi(configuration);
 

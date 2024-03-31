@@ -16,7 +16,7 @@ export function RefinedArea() {
   const [result] = useAtom(resultAtom);
 
   function transformQuestionsToFlashcards(result: string | JSX.Element[]) {
-    let structuredFlashcards = {};
+    let structuredFlashcards: any = {};
 
     try {
       // Parse the input if it's a JSON string.
@@ -28,7 +28,7 @@ export function RefinedArea() {
       // Determine if the parsed result is an object (potentially with topics).
       if (typeof parsedResult === 'object' && !Array.isArray(parsedResult)) {
         // The input is an object with topics.
-        structuredFlashcards = Object.entries(parsedResult).reduce((acc, [topic, cards]) => {
+        structuredFlashcards = Object.entries(parsedResult).reduce((acc: any, [topic, cards]) => {
           if (Array.isArray(cards)) {
             // Process and assign each card to the appropriate topic.
             acc[topic] = cards.map((card, index) => ({
@@ -44,7 +44,7 @@ export function RefinedArea() {
         // Assign them to a default topic key or leave the key as an empty string.
         structuredFlashcards[''] = parsedResult.map((item, index) => ({
           index: index,
-          frontHTML:<div>{item.question}</div>,
+          frontHTML: <div>{item.question}</div>,
           backHTML: <div>{item.answer}</div>,
         }));
       } else {
@@ -79,32 +79,32 @@ export function RefinedArea() {
       <div>
         {Object.entries(flashcards).map(([topic, flashcard], index) => (
           <div key={index}>
-            <h2>{topic}</h2> 
+            <h2>{topic}</h2>
             {flashcard.length > 0 ? (
-              <FlashcardArray cards={flashcard}
-                frontContentStyle={{
-                  color: "black",
-                  textAlign: "center",
-                  fontWeight: "bold",
-                  fontSize: "25px",
-                  fontFamily: "Arial, sans-serif",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  padding: "25px"
-                }}
-                backContentStyle={{
-                  textAlign: "center",
-                  fontFamily: "Arial, sans-serif",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  padding: "25px"
-                }}
-              />
-            ) : (
-              <p>No flashcards</p>
-            )}
+                <FlashcardArray cards={flashcard}
+                  frontContentStyle={{
+                    color: "black",
+                    textAlign: "center",
+                    fontWeight: "bold",
+                    fontSize: "25px",
+                    fontFamily: "Arial, sans-serif",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    padding: "25px"
+                  }}
+                  backContentStyle={{
+                    textAlign: "center",
+                    fontFamily: "Arial, sans-serif",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    padding: "25px"
+                  }}
+                />
+              ) : (
+                <p>No flashcards</p>
+              )}
           </div>
         ))}
       </div>
