@@ -4,8 +4,6 @@
 
 Refiner is an open source online app designed to improve your written communication. By automatically correcting grammar and stylistic errors, adjusting the tone, and providing various formatting options (e.g., markdown or bullet point conversion), Refiner ensures your messages are clear and accurate. This tool is particularly valuable for non-native speakers and remote working professionals aiming to enhance their written communication.
 
-![Refiner](./refiner.png)
-
 ## Features
 
 1. **Grammar and Style Refinement**: Corrects grammatical and stylistic errors.
