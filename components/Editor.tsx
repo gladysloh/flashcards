@@ -39,7 +39,7 @@ export function Editor() {
 
   useEffect(() => {
     setHelperText(
-      `Press ${getModKeyDisplay()}+${getEnterKeyDisplay()} to refine`
+      `Press ${getModKeyDisplay()}+${getEnterKeyDisplay()} to create flashcard`
     );
   }, []);
 
@@ -100,7 +100,7 @@ export function Editor() {
           "Refining in progress..."
         ) : (
           <>
-            Refine <HotkeyHint hotkey="mod+enter" />
+            Create Flash Card <HotkeyHint hotkey="mod+enter" />
           </>
         )}
       </Button>

@@ -32,7 +32,11 @@ export function useRefine() {
     });
     const localRefined = (await result.json())["refined"];
     setRefined(localRefined);
-    setResult(compareStrings(text, localRefined));
+    
+    // setResult(compareStrings(text, localRefined));
+    setResult(localRefined);
+    console.log(localRefined)
     setLoading(false);
   };
 }
+

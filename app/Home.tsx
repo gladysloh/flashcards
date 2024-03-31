@@ -47,10 +47,10 @@ export function Home({
       }}
     >
       {showSupportUkraineBanner && <SupportUkraineBanner />}
-      <Header>
+      {/* <Header>
         <InstructionSelector />
         <InstructionsToolbar />
-      </Header>
+      </Header> */}
       <Stack
         spacing={{
           xs: 1,
