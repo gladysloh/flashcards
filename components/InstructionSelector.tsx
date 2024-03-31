@@ -18,7 +18,6 @@ import {
 } from "material-ui-popup-state/hooks";
 import { Button } from "@mui/material";
 import styled from "@emotion/styled";
-import { useEffect } from "react";
 
 export const InstructionSelector = () => {
   return (
@@ -58,27 +57,6 @@ function InstructionMenu({
   const isInstructionSelected = (instructionName: InstructionName) => {
     return instructionNames.includes(instructionName);
   };
-
-  // Use useEffect to pre-select instructions when the component mounts
-  useEffect(() => {
-    // Define an array of instruction names you want to pre-select
-    const preSelectedInstructions: InstructionName[] = [
-      'simple',
-      'casual',
-      'friendly',
-      'short',
-      'highlight'
-    ];
-
-    // Update the instructionNames state with these pre-selected instructions
-    // This will add these instructions if they are not already selected
-    setInstructionNames((currentInstructions) => {
-      // Create a new set to avoid duplicates and to ensure idempotence
-      const updatedInstructions = new Set([...currentInstructions, ...preSelectedInstructions]);
-      return Array.from(updatedInstructions);
-    });
-  }, [setInstructionNames]); // The empty dependency array ensures this effect runs only once on mount
-
 
   return (
     <>

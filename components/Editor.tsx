@@ -19,6 +19,7 @@ import { InstructionsToolbar } from "./InstructionsToolbar";
 import { getEnterKeyDisplay, getModKeyDisplay } from "@/lib/hotkeys";
 import { useRefine } from "@/app/hooks/useRefine";
 import { HotkeyHint } from "./HotkeyHint";
+import { SAMPLE_FLASHCARD } from "@/app/constants";
 
 const AUTO_REFINE = (process.env.NEXT_PUBLIC_AUTO_REFINE ?? "false") === "true";
 const AUTO_REFINE_DELAY_MS = parseInt(
@@ -89,6 +90,11 @@ export function Editor() {
           helperText={helperText}
         />
       </Box>
+
+      <Button color="secondary" onClick={() => setText(SAMPLE_FLASHCARD)}>
+        Input sample text
+      </Button>
+
       <Button
         variant="contained"
         color="primary"

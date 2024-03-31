@@ -15,19 +15,6 @@ export function RefinedArea() {
   const [showDiff, setShowDiff] = useAtom(showDiffAtom);
   const [result] = useAtom(resultAtom);
 
-  const cards = [
-    {
-      id: 1,
-      frontHTML: <div>What is the capital of <u>Alaska</u>?</div>,
-      backHTML: <>Juneau</>,
-    },
-    {
-      id: 2,
-      frontHTML: <>What is the capital of California?</>,
-      backHTML: <>Sacramento</>,
-    }
-  ];
-
   function transformQuestionsToFlashcards(result: any) {
     console.log('Original input:', result);
     if (typeof result === 'string') {
@@ -49,6 +36,7 @@ export function RefinedArea() {
         result = parsedResult; // Proceed with the parsed result
       } catch (e) {
         console.error('Failed to parse result string as JSON:', e);
+
         return [];
       }
     } else if (!Array.isArray(result)) {
@@ -68,6 +56,7 @@ export function RefinedArea() {
   const flashcards = transformQuestionsToFlashcards(result);
   console.log(flashcards)
 
+
   return (
     <Stack spacing={2} direction="column" flexGrow={1}>
       {/* <Box
@@ -79,28 +68,36 @@ export function RefinedArea() {
       >
         {result}
       </Box> */}
-      <FlashcardArray cards={flashcards}
-        frontContentStyle={{
-          color: "black",
-          textAlign: "center",
-          fontWeight: "bold",
-          fontSize:"25px",
-          fontFamily: "Arial, sans-serif",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          padding: "25px"
 
-        }}
-        backContentStyle={{
-          textAlign: "center",
-          fontFamily: "Arial, sans-serif",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          padding: "25px"
-        }}
-      />
+      <div>
+        {flashcards.length > 0 ? (
+          <FlashcardArray cards={flashcards}
+            frontContentStyle={{
+              color: "black",
+              textAlign: "center",
+              fontWeight: "bold",
+              fontSize: "25px",
+              fontFamily: "Arial, sans-serif",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              padding: "25px"
+
+            }}
+            backContentStyle={{
+              textAlign: "center",
+              fontFamily: "Arial, sans-serif",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              padding: "25px"
+            }}
+          />
+        ) : (
+          <p>No flashcards</p>
+        )}
+      </div>
+
 
       {/* <Stack spacing={2} direction="row">
         {result.length > 0 && (
