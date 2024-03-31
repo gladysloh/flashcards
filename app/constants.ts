@@ -1,19 +1,12 @@
 import { InstructionName } from "@/lib/refiner/instructions";
 
-export const DEMO_TEXT = `Welcome to Refiner. 
+export const DEMO_TEXT = `Create Your Own Flashcards
 
-Refiner improves your writings. It corrects grammar issues, adjusts tone, and offers formatting options. 
-I found it useful for non-native speakers and professionals who communicate with text.
-
-Here's a quick demo:
-
-- Replace this text with your own.
-- Optionally, choose tone and refinement instructions.
-- Click the 'Refine' button.
-- Watch as Refiner improves your text.
-- Copy the result to your clipboard.
-
-It is an open-source project. The code is available on https://github.com/imankulov/refiner.
+Get started with personalized learning today! 
+Simply input your flashcard content in a JSON string format, a
+nd we'll take care of the rest. 
+It's that easy to customize your study materials. 
+Begin crafting your unique set of flashcards now and make studying more effective and tailored to your needs.
 
 Give it a try now.`;
 
