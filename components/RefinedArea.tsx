@@ -10,6 +10,12 @@ import { resultAtom, showDiffAtom } from "@/app/atoms";
 import { HotkeyHint } from "./HotkeyHint";
 
 import { FlashcardArray } from "react-quizlet-flashcard";
+import FlashcardArrayProps from "react-quizlet-flashcard/dist/interfaces/IFlashcardArray";
+
+
+interface FlashcardsByTopic {
+  [topic: string]: any;
+}
 
 export function RefinedArea() {
   const [showDiff, setShowDiff] = useAtom(showDiffAtom);
@@ -60,7 +66,7 @@ export function RefinedArea() {
   }
 
   // Use the transformation function to populate the `cards` array
-  const flashcards = transformQuestionsToFlashcards(result);
+  const flashcards: FlashcardsByTopic = transformQuestionsToFlashcards(result);
   console.log(flashcards)
 
 
@@ -77,7 +83,7 @@ export function RefinedArea() {
       </Box> */}
 
       <div>
-        {Object.entries(flashcards).map(([topic, flashcard], index) => (
+        {Object.entries(flashcards as FlashcardsByTopic).map(([topic, flashcard], index) => (
           <div key={index}>
             <h2>{topic}</h2>
             {flashcard.length > 0 ? (
