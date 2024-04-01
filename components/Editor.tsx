@@ -56,19 +56,24 @@ export function Editor() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('api/v1/telegram');
+        const response = await fetch('api/v1/telegram', {
+          method: "POST"
+        });
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        setText(data.text); // Assuming the response has a text field
+        console.log("IN EDITOR!!!!!!")
+        console.log(data)
+        // setText(data.text); // Assuming the response has a text field
       } catch (error) {
         console.error("Failed to fetch: ", error);
       }
     };
 
     fetchData();
-  }, [setText]);
+    console.log("fetching")
+  }, [text]);
 
   function handleOnChange(
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

@@ -1,5 +1,4 @@
 // app/api/v1/telegram/route.ts
-import type { NextApiRequest, NextApiResponse } from 'next';
 import { NextRequest, NextResponse } from 'next/server';
 
 interface RequestJSON {
@@ -8,7 +7,8 @@ interface RequestJSON {
 
 export async function POST(request: NextRequest) {
     const text : RequestJSON = await request.json();
-  
+    console.log("in POST ============")
+
     if (!text) {
       return new NextResponse(
         JSON.stringify({ name: "Please provide something to search for" }),
@@ -16,8 +16,10 @@ export async function POST(request: NextRequest) {
       );
     }
     
+    console.log("PASSSSS")
     console.log(text);
-    return new NextResponse(JSON.stringify({ text: text }), {
+
+    return new NextResponse(JSON.stringify(text), {
       status: 200,
     });
   }
