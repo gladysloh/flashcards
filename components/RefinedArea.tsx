@@ -115,7 +115,6 @@ export function RefinedArea() {
         ))}
       </div>
 
-
       {/* <Stack spacing={2} direction="row">
         {result.length > 0 && (
           <>
