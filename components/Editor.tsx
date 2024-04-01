@@ -90,7 +90,7 @@ export function Editor() {
           helperText={helperText}
         />
       </Box>
-
+      
       <Button color="secondary" onClick={() => setText(SAMPLE_FLASHCARD)}>
         Input sample text
       </Button>
